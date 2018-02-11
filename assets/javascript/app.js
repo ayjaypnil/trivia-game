@@ -29,12 +29,13 @@ var object = {
 var intervalID;
 var showQuestion;
 var clockRunning = false;
-
+var answersRight = 0;
+var answersWrong = 0;
 
 
 var stopwatch = {
 
-    time: 5,
+    time: 10,
 
     start: function () {
         if (!clockRunning) {
@@ -57,14 +58,21 @@ var stopwatch = {
             answerBtn.text(object.questionOne.answerChoices[i]);
 
             $("#answer").append(answerBtn);
-            $("#timer").text(parseInt(5));
+            $("#timer").text(parseInt(10));
 
-            // $(".btn").on("click", function(){
-            //     console.log("clicked");
-            // });
+            $(answerBtn).click(function(){
+                var correct = $(this).data("letter");
+                if(correct == 9){
+                   answersRight ++;
+                   console.log(answersRight);
+                } else if (correct !== 9){
+                   answersWrong++;
+                   console.log(answersWrong);
+                }
+            });
         }
         stopwatch.start();
-        setTimeout(stopwatch.nextQuestionTwo, 5 * 1000);
+        setTimeout(stopwatch.nextQuestionTwo, 10 * 1000);
     },
 
     nextQuestionTwo: function () {
@@ -82,6 +90,17 @@ var stopwatch = {
             answerBtn.attr("data-letter", object.questionTwo.answerChoices[i]);
             answerBtn.text(object.questionTwo.answerChoices[i]);
             $("#answer").append(answerBtn);
+
+            $(answerBtn).click(function () {
+                var correct = $(this).data("letter");
+                if (correct == 17) {
+                    answersRight++;
+                    console.log(answersRight);
+                } else if (correct !== 17) {
+                    answersWrong++;
+                    console.log(answersWrong);
+                }
+            });
         }
     
         stopwatch.start();
@@ -102,6 +121,17 @@ var stopwatch = {
             answerBtn.attr("data-letter", object.questionThree.answerChoices[i]);
             answerBtn.text(object.questionThree.answerChoices[i]);
             $("#answer").append(answerBtn);
+
+            $(answerBtn).click(function () {
+                var correct = $(this).data("letter");
+                if (correct == 40) {
+                    answersRight++;
+                    console.log(answersRight);
+                } else if (correct !== 40) {
+                    answersWrong++;
+                    console.log(answersWrong);
+                }
+            });
         }
         stopwatch.start();
         setTimeout(stopwatch.nextQuestionFour, 5 * 1000);
@@ -121,6 +151,17 @@ var stopwatch = {
             answerBtn.attr("data-letter", object.questionFour.answerChoices[i]);
             answerBtn.text(object.questionFour.answerChoices[i]);
             $("#answer").append(answerBtn);
+
+            $(answerBtn).click(function () {
+                var correct = $(this).data("letter");
+                if (correct == 44) {
+                    answersRight++;
+                    console.log(answersRight);
+                } else if (correct !== 44) {
+                    answersWrong++;
+                    console.log(answersWrong);
+                }
+            });
         }
         stopwatch.start();
         setTimeout(stopwatch.nextQuestionFive, 5 * 1000);
@@ -140,6 +181,17 @@ var stopwatch = {
             answerBtn.attr("data-letter", object.questionFive.answerChoices[i]);
             answerBtn.text(object.questionFive.answerChoices[i]);
             $("#answer").append(answerBtn);
+
+            $(answerBtn).click(function () {
+                var correct = $(this).data("letter");
+                if (correct == 22) {
+                    answersRight++;
+                    console.log(answersRight);
+                } else if (correct !== 22) {
+                    answersWrong++;
+                    console.log(answersWrong);
+                }
+            });
         }
         stopwatch.start();
         setTimeout(stopwatch.triviaOver, 5 * 1000);
@@ -158,11 +210,9 @@ var stopwatch = {
         $("h1").empty();
 
         $("h1").append("Trivia is Over");
-        $("#question").append("You got this many right");
-        $("#answer").append("You got this many wrong");
+        $("#question").append("You got this many right: " + answersRight);
+        $("#answer").append("You got this many wrong: " + answersWrong);
     },
-
-
 };
 
 
