@@ -68,7 +68,7 @@ var stopwatch = {
                 } else if (correct !== 9){
                    answersWrong++;
                    console.log(answersWrong);
-                }
+                } 
             });
         }
         stopwatch.start();
