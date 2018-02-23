@@ -49,50 +49,45 @@ var game = {
     $("#timer").text(game.countStartNumber);
     game.currentQuestion++;
     game.loadQuestion();
+  
   },
   loadQuestion: function() {
-      $("#answer").empty();
+    $("#answer").empty();
     timer = setInterval(game.countdown, 1000);
-    $("#question").html(
-      "<h1>" + questionArray[this.currentQuestion].question + "</h1>"
-    );
-    for (
-      var i = 0;
-      i < questionArray[this.currentQuestion].answerChoices.length;
-      i++
-    ) {
+    $("#question").html("<h1>" + questionArray[this.currentQuestion].question + "</h1>");
+    for (var i = 0; i < questionArray[this.currentQuestion].answerChoices.length; i++) {
       var answerBtn = $("<button>");
       answerBtn.addClass("answer-button");
       answerBtn.attr("id", "button");
-      answerBtn.attr(
-        "data-name",
-        questionArray[this.currentQuestion].answerChoices[i]
-      );
+      answerBtn.attr("data-name", questionArray[this.currentQuestion].answerChoices[i]);
       answerBtn.text(questionArray[this.currentQuestion].answerChoices[i]);
-
       $("#answer").append(answerBtn);
     }
   },
   timeUp: function() {
     // erases the interval that would be set prior to this
     clearInterval(timer);
+    game.answeredIncorrectly();
   },
-  results: function() {},
+  results: function() {
+    $("#question").empty();
+    $("#timer").empty();
+    $("#question").append("Good Guys: " + game.correct + "  Bad Guys: " + game.incorrect);
+  },
   clicked: function(event) {
     clearInterval(timer);
-    if (
-      $(event.target).attr("data-name") ===
-      questionArray[this.currentQuestion].answer
-    ) {
+    if ($(event.target).attr("data-name") === questionArray[this.currentQuestion].answer) {
       this.answeredCorrectly();
-    } else {
+    } else if (game.countStartNumber == 0) {
+      this.answeredIncorrectly();
+    } else{
       this.answeredIncorrectly();
     }
   },
   answeredIncorrectly: function() {
     game.incorrect++;
     clearInterval(timer);
-    $("#question").text("incorrect: " + this.incorrect);
+    $("#question").text("You got this question incorrect!");
     if (game.currentQuestion === questionArray.length - 1) {
       setTimeout(game.results, 3000);
     } else {
@@ -102,7 +97,7 @@ var game = {
   answeredCorrectly: function() {
     game.correct++;
     clearInterval(timer);
-    $("#question").text("correct: " + this.correct)
+    $("#question").text("You got this question correct!")
     if (game.currentQuestion === questionArray.length - 1) {
       setTimeout(game.results, 3000);
     } else {
