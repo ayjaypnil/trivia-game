@@ -23,11 +23,36 @@ var questionArray = [
     question: "What number is Jason Heyward?",
     answerChoices: ["33", "22", "11", "3"],
     answer: "22"
+  },
+  {
+    question: "What number is Addison Russel?",
+    answerChoices: ["13", "24", "21", "6"],
+    answer: "21"
+  },
+  {
+    question: "What number is Jon Lester?",
+    answerChoices: ["34", "12", "52", "42"],
+    answer: "34"
+  },
+  {
+    question: "What number is Kyle Hendricks?",
+    answerChoices: ["18", "4", "31", "28"],
+    answer: "28"
+  },
+  {
+    question: "What number is CJ Edwards?",
+    answerChoices: ["8", "14", "6", "24"],
+    answer: "6"
+  },
+  {
+    question: "What number is Ben Zobrist?",
+    answerChoices: ["28", "18", "16", "32"],
+    answer: "18"
   }
 ];
 
 var timer;
-var counter = 5;
+var counter = 10;
 
 var game = {
   questions: questionArray,
@@ -45,6 +70,7 @@ var game = {
     }
   },
   nextQuestion: function() {
+    $("#resultImage").empty();
     game.countStartNumber = counter;
     $("#timer").text(game.countStartNumber);
     game.currentQuestion++;
@@ -53,8 +79,9 @@ var game = {
   },
   loadQuestion: function() {
     $("#answer").empty();
+    $("#buttonDiv").empty();
     timer = setInterval(game.countdown, 1000);
-    $("#question").html("<h1>" + questionArray[this.currentQuestion].question + "</h1>");
+    $("#question").html(questionArray[this.currentQuestion].question);
     for (var i = 0; i < questionArray[this.currentQuestion].answerChoices.length; i++) {
       var answerBtn = $("<button>");
       answerBtn.addClass("answer-button");
@@ -73,6 +100,9 @@ var game = {
     $("#question").empty();
     $("#timer").empty();
     $("#question").append("Good Guys: " + game.correct + "  Bad Guys: " + game.incorrect);
+    $("#buttonDiv").empty();
+    $("#buttonDiv").append("<button id='resetButton'>Reset</button>");
+    $("#resultImage").empty();
   },
   clicked: function(event) {
     clearInterval(timer);
@@ -87,6 +117,9 @@ var game = {
   answeredIncorrectly: function() {
     game.incorrect++;
     clearInterval(timer);
+
+    $("#resultImage").append("<img id='cubslose' src='assets/images/cubslose.jpg'>");
+
     $("#question").text("You got this question incorrect!");
     if (game.currentQuestion === questionArray.length - 1) {
       setTimeout(game.results, 3000);
@@ -97,6 +130,9 @@ var game = {
   answeredCorrectly: function() {
     game.correct++;
     clearInterval(timer);
+
+    $("#resultImage").append("<img id='cubswin' src='assets/images/cubswin.png'>");
+
     $("#question").text("You got this question correct!")
     if (game.currentQuestion === questionArray.length - 1) {
       setTimeout(game.results, 3000);
@@ -117,7 +153,7 @@ $(document).on("click", ".answer-button", function(event) {
   game.clicked(event);
 });
 
-$(document).on("click", "#start-over", function(event) {
+$(document).on("click", "#resetButton", function(event) {
   game.reset(event);
 });
 

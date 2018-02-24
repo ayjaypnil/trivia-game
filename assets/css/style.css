@@ -1,11 +1,24 @@
-h1{
-    color: rgb(0, 0, 255);
-}
 
-/* body{
-    background: url("/Users/AnilJayPatel/Desktop/Files/P/BootCamp/Week3/trivia-game/assets/images/scoreboard.jpeg")
-} */
+
+body{
+    
+    text-align: center;
+}
 div{
     color: black;
     
+}
+
+#timer{
+   font-size: 25px;
+}
+
+#cubswin{
+    height: 200px;
+    width: 350px;
+}
+
+#cubslose{
+    height: 200px;
+    width: 225px;
 }
